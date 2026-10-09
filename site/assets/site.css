@@ -298,3 +298,18 @@ footer.site .legal{border-top:1px solid rgba(255,255,255,.1);margin-top:48px;pad
 .menu>li>a,.menu>li>button{white-space:nowrap;padding:10px 9px;font-size:.9rem}
 @media(max-width:1240px){.menu{display:none}.burger{display:grid}}
 .hero .eyebrow,.page-hero .eyebrow{color:var(--orange-lt)}
+/* Search */
+.icon-btn{width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;color:var(--text)}
+.icon-btn svg{width:20px;height:20px}
+.icon-btn:hover{border-color:var(--navy);color:var(--blue)}
+@media(max-width:400px){.icon-btn{display:none}}
+.searchbar{position:relative}
+.searchbar input{width:100%;min-height:60px;padding:0 56px 0 22px;border:1.5px solid var(--line);border-radius:999px;font:500 1.05rem var(--body);background:#fff;box-shadow:var(--shadow)}
+.searchbar input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(0,52,200,.12)}
+.searchbar svg{position:absolute;right:22px;top:50%;transform:translateY(-50%);width:22px;height:22px;color:var(--muted)}
+.search-results a{display:block;padding:20px 22px;border:1px solid var(--line);border-radius:16px;margin-bottom:12px;background:#fff;transition:.2s}
+.search-results a:hover{border-color:transparent;box-shadow:var(--shadow-lg)}
+.search-results small{color:var(--blue);font-weight:600}
+.search-results h4{margin:4px 0 6px}
+.search-results mark{background:var(--orange-soft);color:var(--orange-ink);padding:0 2px;border-radius:3px}
+.nav-cta .btn{white-space:nowrap}.searchbar input::-webkit-search-cancel-button{margin-right:30px}

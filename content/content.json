@@ -18822,5 +18822,162 @@
     }
    ]
   ]
+ },
+ "booking-calendar__real-estate-consultation": {
+  "title": "Real Estate Consultation - Ozi Realty",
+  "desc": "",
+  "og": "https://static.wixstatic.com/media/a81bb2_289504af9171401cb8ea1eefa5c7ad9e%7Emv2.png/v1/fit/w_2500,h_1330,al_c/a81bb2_289504af9171401cb8ea1eefa5c7ad9e%7Emv2.png",
+  "sections": [
+   [
+    {
+     "t": "h1",
+     "text": "Schedule your service"
+    },
+    {
+     "t": "p",
+     "text": "Expert property advice with Esi Dor, Principal of OziRealty (RLA 350 628)"
+    },
+    {
+     "t": "p",
+     "text": "Check out our availability and book the date and time that works for you"
+    }
+   ]
+  ]
+ },
+ "properties": {
+  "title": "Properties (List) | Ozi Realty",
+  "desc": "",
+  "og": "https://static.wixstatic.com/media/a81bb2_289504af9171401cb8ea1eefa5c7ad9e%7Emv2.png/v1/fit/w_2500,h_1330,al_c/a81bb2_289504af9171401cb8ea1eefa5c7ad9e%7Emv2.png",
+  "sections": [
+   [
+    {
+     "t": "h1",
+     "text": "Properties List"
+    },
+    {
+     "t": "img",
+     "src": "https://static.wixstatic.com/media/668220_834dcb0e3c774714b7a05aeedbc65968~mv2.webp",
+     "alt": "$655 P/W"
+    },
+    {
+     "t": "h2",
+     "text": "8 Weerana Road"
+    },
+    {
+     "t": "p",
+     "text": "esi@ozirealty.com.au",
+     "href": "mailto:esi@ozirealty.com.au"
+    },
+    {
+     "t": "btn",
+     "text": "Read More",
+     "href": "https://www.ozirealty.com.au/properties/8-weerana-road"
+    },
+    {
+     "t": "img",
+     "src": "https://static.wixstatic.com/media/a81bb2_9bad815d78674877918516323d112d97~mv2.jpg",
+     "alt": "Sold"
+    },
+    {
+     "t": "h2",
+     "text": "11 Berry Fry Avenue"
+    },
+    {
+     "t": "p",
+     "text": "esi@ozirealty.com.au",
+     "href": "mailto:esi@ozirealty.com.au"
+    },
+    {
+     "t": "btn",
+     "text": "Read More",
+     "href": "https://www.ozirealty.com.au/properties/11-berry-fry-avenue"
+    },
+    {
+     "t": "img",
+     "src": "https://static.wixstatic.com/media/a81bb2_6df0fa068c684e32a5265c25db7f3037~mv2.jpg",
+     "alt": "Sold"
+    },
+    {
+     "t": "h2",
+     "text": "12 Powell Street"
+    },
+    {
+     "t": "p",
+     "text": "esi@ozirealty.com.au",
+     "href": "mailto:esi@ozirealty.com.au"
+    },
+    {
+     "t": "btn",
+     "text": "Read More",
+     "href": "https://www.ozirealty.com.au/properties/12-powell-street"
+    },
+    {
+     "t": "img",
+     "src": "https://static.wixstatic.com/media/668220_f47f60b53e29433199d3f591a949a0d5~mv2.jpg",
+     "alt": "Coming Soon"
+    },
+    {
+     "t": "h2",
+     "text": "Pre-Market"
+    },
+    {
+     "t": "p",
+     "text": "esi@ozirealty.com.au",
+     "href": "mailto:esi@ozirealty.com.au"
+    },
+    {
+     "t": "btn",
+     "text": "Read More",
+     "href": "https://www.ozirealty.com.au/properties/greenacres"
+    }
+   ]
+  ]
+ },
+ "search": {
+  "title": "Search Results | Ozi Realty",
+  "desc": "",
+  "og": "https://static.wixstatic.com/media/a81bb2_289504af9171401cb8ea1eefa5c7ad9e%7Emv2.png/v1/fit/w_2500,h_1330,al_c/a81bb2_289504af9171401cb8ea1eefa5c7ad9e%7Emv2.png",
+  "sections": [
+   [
+    {
+     "t": "h1",
+     "text": "Search Results"
+    },
+    {
+     "t": "h1",
+     "text": "Search this site"
+    },
+    {
+     "t": "form",
+     "fields": [
+      {
+       "k": "search",
+       "label": "Site search",
+       "req": false
+      }
+     ],
+     "submit": "Submit",
+     "consent": ""
+    },
+    {
+     "t": "h2",
+     "text": "1 result found with an empty search"
+    },
+    {
+     "t": "img",
+     "src": "https://static.wixstatic.com/media/668220_0303abd79989413482ca8a6a95bfeb73~mv2.jpg",
+     "alt": "Real Estate Consultation"
+    },
+    {
+     "t": "btn",
+     "text": "Real Estate Consultation",
+     "href": "https://www.ozirealty.com.auhttps://www.ozirealty.com.au/service-page/real-estate-consultation"
+    },
+    {
+     "t": "p",
+     "text": "Book a one-on-one real estate consultation with Esi Dor, Principal of OziRealty (Licence Number: RLA 350 628). This session is designed for property owners, investors, and sellers who want clear and practical advice about their real estate decisions in South Australia. During the consultation we can discuss: • Your property's current market value • Selling strategies to maximise your sale price • Rental and property management options • Investment opportunities in the local market You will receive honest, data-backed insights based on current market conditions across South Australia."
+    }
+   ]
+  ]
  }
 }

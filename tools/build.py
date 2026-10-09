@@ -42,7 +42,6 @@ def link(h):
     if h.startswith(DOMAIN):
         h = h[len(DOMAIN):] or '/'
         if h.startswith('/blog/page/'): return '/blog/'
-        if h == '/booking-calendar/real-estate-consultation': return '/service-page/real-estate-consultation/'
         if '#' in h:
             p, a = h.split('#', 1)
             return (p.rstrip('/') + '/#' + a) if p else '#' + a
@@ -63,6 +62,7 @@ NAV = [
     ('Looking For Land', '/land-opportunities-sa-adelaide/'),
     ('I Need To Rent', '/rent-property-house-adelaide/'),
     ('Sell My Business', '/sell-my-business-australia/'),
+    ('Properties List', '/properties/'),
     ('All services', '/property-services/')]),
  ('Strategy Services', '/property-strategy-services/', [
     ('Free Appraisal', '/free-property-appraisal-sa/'),
@@ -76,7 +76,7 @@ NAV = [
  ('Free Meeting', '/book-online/', None),
  ('Contact Us', '/contact-adelaide-realestae-agency/', None),
 ]
-QUICK = [('Home','/'),('Services','/property-services/'),('Strategy Services','/property-strategy-services/'),('Oversea Investment','/oversees-investment/'),('Free Appraisal','/free-property-appraisal-sa/'),('About','/about-adelaide-land-agent/'),('Contact Us','/contact-adelaide-realestae-agency/'),('Free Meeting','/book-online/'),('Gift Party','/realestate-gift-adelaide/'),('Blog','/blog/'),('FAQ','/adelaide-property-faq/')]
+QUICK = [('Home','/'),('Services','/property-services/'),('Strategy Services','/property-strategy-services/'),('Oversea Investment','/oversees-investment/'),('Free Appraisal','/free-property-appraisal-sa/'),('About','/about-adelaide-land-agent/'),('Contact Us','/contact-adelaide-realestae-agency/'),('Free Meeting','/book-online/'),('Gift Party','/realestate-gift-adelaide/'),('Blog','/blog/'),('FAQ','/adelaide-property-faq/'),('Properties','/properties/'),('Search','/search/')]
 
 def header(path):
     li = []
@@ -95,7 +95,7 @@ def header(path):
 <header class="nav"><div class="wrap">
 <a class="logo" href="/" aria-label="Ozi Realty home"><img src="{img(LOGO,460)}" alt="ozi realty logo" width="195" height="30"></a>
 <ul class="menu">{''.join(li)}</ul>
-<div class="nav-cta"><a class="btn btn-primary" href="/free-property-appraisal-sa/">Free Appraisal</a><button class="burger" aria-label="Open menu" data-open>{MENU}</button></div>
+<div class="nav-cta"><a class="icon-btn" href="/search/" aria-label="Search this site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></a><a class="btn btn-primary" href="/free-property-appraisal-sa/">Free Appraisal</a><button class="burger" aria-label="Open menu" data-open>{MENU}</button></div>
 </div></header>
 <div class="drawer" id="drawer"><div class="scrim" data-close></div><div class="panel"><button class="close" aria-label="Close menu" data-close>&times;</button><div style="clear:both"></div>{drawer}<a class="btn btn-primary mt-m" style="width:100%" href="/free-property-appraisal-sa/">Free Appraisal</a></div></div>'''
 
@@ -697,6 +697,66 @@ def notfound():
     body = page_hero('Page not found', [{'t':'p','text':'The page you are looking for has moved. Explore our services or get in touch with the team.'}, {'t':'btn','text':'Back to Home','href':DOMAIN}, {'t':'btn','text':'Contact Us','href':DOMAIN+'/contact-adelaide-realestae-agency'}])
     return page('/404/', 'Page not found | Ozi Realty', '', body)
 
+
+# ---------------------------------------------------------------- properties list / search / booking calendar / redirects
+def prop_summary(k):
+    s = DATA[k]['sections'][0]
+    ps = [x['text'] for x in s if x['t'] == 'p']
+    after = lambda l: ps[ps.index(l) + 1] if l in ps and ps.index(l) + 1 < len(ps) else ''
+    return dict(slug=k.split('__')[1], title=s[0]['text'], kind=s[1]['text'], status=s[2]['text'],
+                bed=after('Bedroom'), bath=after('Bathroom'), size=next((p for p in ps if 'm²' in p), ''), price=after('Price'))
+
+def properties_list():
+    d = DATA['properties']; items = d['sections'][0]
+    cards = []
+    for i, it in enumerate(items):
+        if it['t'] != 'img': continue
+        h = items[i + 1]['text']; b = next(x for x in items[i:] if x['t'] == 'btn')
+        slug = link(b['href']).strip('/').split('/')[-1]
+        info = prop_summary('properties__' + slug)
+        st = ' sale' if info['status'].lower() == 'for sale' else ''
+        meta = ' · '.join(x for x in [info['bed'] and info['bed'] + ' bed', info['bath'] and info['bath'] + ' bath', info['size']] if x)
+        cards.append(f'<a class="post rv" href="/properties/{slug}/"><div class="pm" style="position:relative"><img loading="lazy" src="{img(it["src"],800,450)}" alt="{E(h)}"><span class="status{st}" style="position:absolute;top:14px;left:14px">{E(info["status"])}</span></div><div class="pb"><div class="meta"><b>{E(info["kind"])}</b><span>{E(info["price"])}</span></div><h3>{E(h)}</h3><p>{E(meta)}</p><p class="mt-s">Agent: Esi Dor · esi@ozirealty.com.au</p><span class="link-arrow mt-s">Read More {ARROW}</span></div></a>')
+    hero = page_hero('Properties List', [{'t': 'p', 'text': 'Homes listed, leased and sold by Ozi Realty across Adelaide.'}])
+    body = f'<section><div class="wrap"><div class="posts">{"".join(cards)}</div></div></section>' + cta_band()
+    return page('/properties/', d['title'], 'Properties listed, leased and sold by Ozi Realty in Adelaide.', hero + body)
+
+def search_page():
+    hero = page_hero('Search Results', [{'t': 'p', 'text': 'Search this site'}])
+    body = """<section><div class="wrap" style="max-width:900px"><form class="searchbar" role="search" onsubmit="return false"><input id="q" type="search" placeholder="Search pages, services and articles…" aria-label="Site search" autocomplete="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></form><p id="search-count" class="mt-m"></p><div id="search-results" class="search-results"></div></div></section>"""
+    return page('/search/', 'Search Results | Ozi Realty', 'Search the Ozi Realty website.', hero + body)
+
+def booking_calendar():
+    d = DATA['booking-calendar__real-estate-consultation']; s = d['sections'][0]
+    hero = page_hero(s[0]['text'], [{'t': 'p', 'text': s[1]['text']}])
+    form = f'<form class="form-card" data-form="booking" data-form-id="{E(FORM_IDS.get("booking", ""))}" data-to="support@ozirealty.com.au" novalidate><h3>Request a time</h3><p>{E(s[2]["text"])}</p><div class="form-grid"><div class="fld"><label for="c_name">Full name <span style="color:var(--red)">*</span></label><input id="c_name" name="first_name" required autocomplete="name"></div><div class="fld"><label for="c_phone">Phone <span style="color:var(--red)">*</span></label><input id="c_phone" name="phone" type="tel" required></div><div class="fld"><label for="c_email">Email <span style="color:var(--red)">*</span></label><input id="c_email" name="email" type="email" required></div><div class="fld"><label for="c_date">Preferred date</label><input id="c_date" name="preferred_date" type="date"></div><div class="fld full"><label for="c_msg">What would you like to discuss?</label><textarea id="c_msg" name="message"></textarea></div></div><button class="btn btn-primary" type="submit">Request to Book {ARROW}</button><p class="consent">By submitting this form, you acknowledge that you have read and understood our <a href="https://www.prospectbc.com.au/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>, and consent to us collecting, using, and processing the personal information you provide in accordance with that policy.*</p><div class="form-ok" role="status"></div></form>'
+    side = f'<div class="prose rv"><span class="eyebrow">Real Estate Consultation</span><h2 class="mt-s">Expert property advice with Esi Dor</h2><div class="stats mt-m"><div class="stat"><b>30 min</b><span>Duration</span></div><div class="stat"><b>Online</b><span>Available</span></div><div class="stat"><b>Free</b><span>No obligation</span></div></div><div class="agent mt-m"><img src="{img(ESI,200,200)}" alt="Esi Dor"><div><small style="color:var(--muted)">Principal · RLA 350 628</small><h4>Esi Dor</h4><p>308 Prospect Road, Prospect SA · 1800 400 333</p></div></div></div>'
+    body = f'<section><div class="wrap split" style="align-items:start">{side}<div class="rv">{form}</div></div></section>'
+    return page('/booking-calendar/real-estate-consultation/', d['title'], 'Schedule a real estate consultation with Esi Dor, Principal of OziRealty.', hero + body)
+
+def redirect_page(to):
+    return f'<!doctype html><html lang="en-AU"><head><meta charset="utf-8"><title>Redirecting…</title><link rel="canonical" href="{DOMAIN}{to.rstrip("/")}"><meta http-equiv="refresh" content="0; url={to}"><meta name="robots" content="noindex"></head><body><p><a href="{to}">Continue</a></p><script>location.replace({json.dumps(to)} + location.hash)</script></body></html>'
+
+def search_index():
+    idx = []
+    for path, fp in walk_pages():
+        h = open(fp).read()
+        t = re.search(r'<title>(.*?)</title>', h, re.S); dsc = re.search(r'<meta name="description" content="(.*?)"', h)
+        main = re.search(r'<main>(.*)</main>', h, re.S)
+        txt = re.sub(r'<[^>]+>', ' ', main.group(1) if main else '')
+        txt = html.unescape(re.sub(r'\s+', ' ', txt)).strip()
+        idx.append({'u': path, 't': html.unescape(t.group(1)).split(' | ')[0] if t else path, 'd': html.unescape(dsc.group(1)) if dsc else '', 'x': txt[:1800]})
+    json.dump(idx, open(os.path.join(OUT, 'assets', 'search-index.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
+    return len(idx)
+
+def walk_pages():
+    for root, _, files in os.walk(OUT):
+        if 'index.html' in files:
+            fp = os.path.join(root, 'index.html'); h = open(fp).read(200)
+            if 'http-equiv="refresh"' in h: continue
+            rel = os.path.relpath(root, OUT)
+            yield ('/' if rel == '.' else '/' + rel + '/'), fp
+
 # ---------------------------------------------------------------- write
 def write(path, content):
     fp = os.path.join(OUT, path.strip('/'), 'index.html') if path != '/' else os.path.join(OUT, 'index.html')
@@ -718,7 +778,7 @@ def main():
     }
     n = 0
     for k in DATA:
-        if k.startswith(('post__', 'blog', 'properties__')) or k == 'buy-property-adelaide': continue
+        if k.startswith(('post__', 'blog', 'properties')) or k in ('buy-property-adelaide', 'search', 'booking-calendar__real-estate-consultation'): continue
         if k in bespoke: path, fn = bespoke[k]; write(path, fn())
         elif k == 'service-page__real-estate-consultation': write('/service-page/real-estate-consultation/', book_online(k, '/service-page/real-estate-consultation/'))
         else: path = '/' + k.replace('__', '/') + '/'; write(path, generic_page(k, path))
@@ -729,6 +789,13 @@ def main():
     for _, c in CATS: path, html_ = blog_index(c); write(path, html_); n += 1
     for p in post_list(): write(f'/post/{p["slug"]}/', post_page(p)); n += 1
     open(os.path.join(OUT, '404.html'), 'w').write(notfound()); n += 1
+    write('/properties/', properties_list()); write('/search/', search_page())
+    write('/booking-calendar/real-estate-consultation/', booking_calendar()); n += 3
+    # short URLs the live site redirects, plus paginated blog URLs
+    for src, dst in [('/free-appraisal/', '/free-property-appraisal-sa/'), ('/manage-property/', '/manage-property-adelaide/'),
+                     ('/about/', '/about-adelaide-land-agent/')] + [(f'/blog/page/{i}/', '/blog/') for i in range(2, 6)]:
+        write(src, redirect_page(dst))
+    print('search index:', search_index())
     SPECS['booking'] = {'name': 'Free Meeting: Real Estate Consultation', 'fields': [
         {'target': 'first_name', 'label': 'Full name', 'kind': 'text', 'req': True},
         {'target': 'phone', 'label': 'Phone', 'kind': 'tel', 'req': True},
