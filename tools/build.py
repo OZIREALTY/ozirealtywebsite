@@ -762,8 +762,12 @@ def walk_pages():
 # Wix headless hosting serves exact file names only (/about.html works, /about and /about/ 404),
 # so every internal page link points at its .html file.
 CLEAN = re.compile(r'((?:href|content)="|url=|location\.replace\(")(/[A-Za-z0-9_/-]*[A-Za-z0-9_-])/?(?=["#?])')
+# URL_STYLE=clean (default, for Wix managed/Astro hosting) keeps the live site's URLs exactly:
+# /about-adelaide-land-agent. URL_STYLE=html targets static drop hosting (/about-adelaide-land-agent.html).
+URL_STYLE = os.environ.get('URL_STYLE', 'clean')
 def clean_urls(html_):
-    return CLEAN.sub(lambda m: m.group(1) + m.group(2) + ('' if m.group(2).startswith('/assets') else '.html'), html_)
+    ext = '.html' if URL_STYLE == 'html' else ''
+    return CLEAN.sub(lambda m: m.group(1) + m.group(2) + ('' if m.group(2).startswith('/assets') else ext), html_)
 
 def page_url(path):
     return '/' if path == '/' else '/' + path.strip('/') + '.html'

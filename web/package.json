@@ -1,0 +1,23 @@
+{
+  "name": "ozi-realty-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "rm -rf public && mkdir -p public && cp -r ../site/. public/",
+    "dev": "npm run sync && wix dev",
+    "build": "npm run sync && wix build",
+    "release": "wix release"
+  },
+  "dependencies": {
+    "@astrojs/react": "7.0.1",
+    "@wix/astro": "3.0.1",
+    "@wix/astro-pages": "3.0.1",
+    "@wix/astro-wix-hosting-adapter": "3.0.1",
+    "astro": "7.3.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@wix/cli": "1.1.258"
+  }
+}

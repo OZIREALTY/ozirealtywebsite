@@ -9,3 +9,11 @@ A modern rebuild of www.ozirealty.com.au. It keeps the same pages, URLs, copy, i
 
 Rebuild: `python3 tools/build.py`. Then drop the `site/` folder onto the Wix headless site.
 Enquiry forms submit to Wix Forms on the headless site (form IDs in `content/form-ids.json`, schemas in `content/forms-spec.json`) with a visitor token. If Wix is unreachable they fall back to an email to the matching department.
+
+## Hosting with the live site's URLs (web/)
+
+`web/` is a Wix-managed headless (Astro) project linked to the same site. It ships the generated pages from `site/` as static files and uses one server route (`web/src/pages/[...slug].ts`) to serve each page at the live site's original URL, e.g. `/about-adelaide-land-agent`, `/post/<slug>` and `/blog/categories/<category>`, with no redirect and no `.html`.
+
+    python3 tools/build.py          # regenerate site/
+    cd web && npx wix env pull      # once, writes .env.local
+    npm run build && npx wix release
