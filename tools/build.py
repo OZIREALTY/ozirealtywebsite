@@ -755,13 +755,24 @@ def walk_pages():
             fp = os.path.join(root, 'index.html'); h = open(fp).read(200)
             if 'http-equiv="refresh"' in h: continue
             rel = os.path.relpath(root, OUT)
-            yield ('/' if rel == '.' else '/' + rel + '/'), fp
+            yield ('/' if rel == '.' else '/' + rel), fp
 
 # ---------------------------------------------------------------- write
+CLEAN = re.compile(r'((?:href|content)="|url=|location\.replace\(")(/[A-Za-z0-9_./-]*?[A-Za-z0-9_-])/(?=["#?])')
+def clean_urls(html_):
+    """Internal links use extensionless URLs without a trailing slash (/about-adelaide-land-agent)."""
+    return CLEAN.sub(r'\1\2', html_)
+
 def write(path, content):
-    fp = os.path.join(OUT, path.strip('/'), 'index.html') if path != '/' else os.path.join(OUT, 'index.html')
+    """Write each page twice, as <path>.html and <path>/index.html, so the host resolves
+    /path, /path/ and /path.html alike."""
+    content = clean_urls(content)
+    if path == '/':
+        open(os.path.join(OUT, 'index.html'), 'w').write(content); return
+    fp = os.path.join(OUT, path.strip('/'), 'index.html')
     os.makedirs(os.path.dirname(fp), exist_ok=True)
     open(fp, 'w').write(content)
+    open(os.path.join(OUT, path.strip('/') + '.html'), 'w').write(content)
 
 def main():
     for d in os.listdir(OUT):
@@ -788,7 +799,7 @@ def main():
     path, html_ = blog_index(); write(path, html_); n += 1
     for _, c in CATS: path, html_ = blog_index(c); write(path, html_); n += 1
     for p in post_list(): write(f'/post/{p["slug"]}/', post_page(p)); n += 1
-    open(os.path.join(OUT, '404.html'), 'w').write(notfound()); n += 1
+    open(os.path.join(OUT, '404.html'), 'w').write(clean_urls(notfound())); n += 1
     write('/properties/', properties_list()); write('/search/', search_page())
     write('/booking-calendar/real-estate-consultation/', booking_calendar()); n += 3
     # short URLs the live site redirects, plus paginated blog URLs
