@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ozi Realty Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   BRAND TOKENS — replace these with your current Ozi Realty
+   colours (Wix Editor > Site Design > Colours). Everything
+   else in the kit derives from these.
+   ========================================================= */
+:root{
+  --brand:#0F2A44;        /* primary (deep navy)      */
+  --brand-ink:#0A1D30;    /* darker primary for hover */
+  --accent:#C8A15A;       /* accent (warm gold)       */
+  --accent-soft:#F6EFE2;
+  --bg:#FFFFFF;
+  --surface:#F7F6F3;      /* sand-neutral sections    */
+  --card:#FFFFFF;
+  --text:#14181F;
+  --muted:#5B6472;
+  --line:#E6E3DD;
+  --on-brand:#FFFFFF;
+  --ok:#1F7A4D;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 1px 2px rgba(16,24,40,.05),0 8px 24px rgba(16,24,40,.06);
+  --shadow-lg:0 20px 48px rgba(16,24,40,.14);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1218;--surface:#131A22;--card:#18212B;--text:#EEF1F5;--muted:#9AA5B4;--line:#26313D;
+    --accent-soft:#2A2418;--brand:#1B3D60;--brand-ink:#24507C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1218;--surface:#131A22;--card:#18212B;--text:#EEF1F5;--muted:#9AA5B4;--line:#26313D;
+  --accent-soft:#2A2418;--brand:#1B3D60;--brand-ink:#24507C;
+}
+
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+@media(min-width:768px){.wrap{padding:0 32px}}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.01em;line-height:1.15}
+h1{font-size:clamp(2.2rem,5vw,4rem)}
+h2{font-size:clamp(1.75rem,3.2vw,2.6rem)}
+h3{font-size:1.25rem}
+.eyebrow{font:600 .75rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:1.075rem;max-width:58ch}
+section{padding:88px 0}
+@media(max-width:767px){section{padding:56px 0}}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.sec-head .eyebrow{display:block;margin-bottom:12px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;font:600 .95rem var(--sans);border:1px solid transparent;cursor:pointer;transition:.2s}
+.btn-primary{background:var(--accent);color:#1A1406}
+.btn-primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn-dark{background:var(--brand);color:var(--on-brand)}
+.btn-dark:hover{background:var(--brand-ink)}
+.btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--text)}
+.link-arrow{font-weight:600;display:inline-flex;gap:6px;align-items:center;border-bottom:1px solid currentColor;padding-bottom:2px}
+
+/* Header */
+.topbar{background:var(--brand);color:#D9E1EA;font-size:.85rem}
+.topbar .wrap{display:flex;justify-content:space-between;height:38px;align-items:center;gap:16px}
+.topbar a:hover{color:#fff}
+@media(max-width:640px){.topbar .hide-sm{display:none}}
+header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:24px}
+.logo{display:flex;align-items:center;gap:10px;font:600 1.3rem var(--serif)}
+.logo-mark{width:38px;height:38px;border-radius:10px;background:var(--brand);display:grid;place-items:center;color:var(--accent);font:600 1.1rem var(--serif)}
+.menu{display:flex;gap:28px;font-weight:500;font-size:.95rem}
+.menu a{color:var(--muted)}
+.menu a:hover,.menu a.active{color:var(--text)}
+.nav-cta{display:flex;gap:10px}
+.burger{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;color:var(--text)}
+@media(max-width:980px){.menu,.nav-cta .btn-ghost{display:none}.burger{display:grid;place-items:center}}
+@media(max-width:520px){.nav-cta .btn-primary{display:none}}
+
+/* Hero */
+.hero{position:relative;min-height:640px;display:flex;align-items:flex-end;padding:0;color:#fff;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=70') center/cover}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(10,22,36,.15) 0%,rgba(10,22,36,.75) 100%)}
+.hero .wrap{width:100%;padding-bottom:56px;padding-top:120px}
+.hero h1{max-width:16ch;margin:14px 0 16px}
+.hero p{max-width:52ch;color:#E5EBF2;font-size:1.1rem}
+.search{margin-top:32px;background:var(--card);color:var(--text);border-radius:18px;box-shadow:var(--shadow-lg);padding:8px;max-width:920px}
+.tabs{display:flex;gap:4px;padding:6px 6px 10px}
+.tab{padding:8px 16px;border-radius:999px;font-weight:600;font-size:.9rem;color:var(--muted);background:none;border:0;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--brand);color:#fff}
+.search-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px}
+.field{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--bg)}
+.field label{display:block;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{border:0;outline:0;background:transparent;width:100%;font:500 1rem var(--sans);color:var(--text);padding-top:2px}
+.search-row .btn{height:auto;border-radius:12px;padding:0 28px}
+@media(max-width:760px){.search-row{grid-template-columns:1fr 1fr}.search-row .field:first-child,.search-row .btn{grid-column:1/-1;height:52px;justify-content:center}}
+
+/* Trust strip */
+.trust{padding:28px 0;border-bottom:1px solid var(--line)}
+.trust .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat b{display:block;font:500 2rem var(--serif)}
+.stat span{color:var(--muted);font-size:.9rem}
+@media(max-width:760px){.trust .wrap{grid-template-columns:repeat(2,1fr)}}
+
+/* Listing cards */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:980px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid-3{grid-template-columns:1fr}}
+.listing{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s;display:flex;flex-direction:column}
+.listing:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.listing .media{position:relative;aspect-ratio:4/3;overflow:hidden}
+.listing .media img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.listing:hover .media img{transform:scale(1.04)}
+.badge{position:absolute;top:14px;left:14px;background:var(--card);color:var(--text);font:600 .72rem var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border-radius:999px}
+.badge.new{background:var(--accent);color:#1A1406}
+.badge.sold{background:var(--brand);color:#fff}
+.fav{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);border:0;display:grid;place-items:center;cursor:pointer;color:#14181F}
+.fav[aria-pressed="true"] svg{fill:#E0475B;stroke:#E0475B}
+.inspect{position:absolute;bottom:12px;left:12px;background:rgba(10,22,36,.78);color:#fff;font-size:.78rem;padding:5px 10px;border-radius:6px;backdrop-filter:blur(4px)}
+.listing .body{padding:20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.price{font-weight:700;font-size:1.15rem}
+.addr{color:var(--muted);font-size:.95rem}
+.feats{display:flex;gap:16px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+.feats span{display:inline-flex;align-items:center;gap:6px}
+.feats svg{width:18px;height:18px}
+.agent-chip{display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.agent-chip img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+
+/* Services */
+.surface{background:var(--surface)}
+.service{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column;gap:14px;transition:.25s}
+.service:hover{border-color:var(--accent)}
+.icon{width:52px;height:52px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.service p{color:var(--muted)}
+.service .link-arrow{margin-top:auto;align-self:flex-start}
+
+/* Appraisal CTA */
+.appraisal{background:var(--brand);color:#fff;border-radius:24px;padding:56px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.appraisal::after{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;border:56px solid rgba(200,161,90,.14)}
+.appraisal p{color:#C9D4E0;margin-top:14px}
+.appraisal form{background:var(--card);color:var(--text);border-radius:16px;padding:24px;display:grid;gap:10px;position:relative;z-index:1}
+.appraisal form .field{background:var(--bg)}
+.appraisal small{color:var(--muted);font-size:.8rem}
+.checks{list-style:none;padding:0;margin-top:22px;display:grid;gap:10px}
+.checks li{display:flex;gap:10px;align-items:center;color:#E5EBF2}
+.checks svg{color:var(--accent);flex:none}
+@media(max-width:900px){.appraisal{grid-template-columns:1fr;padding:32px 20px}}
+
+/* Agents */
+.agent{text-align:left}
+.agent .ph{aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+.agent .ph img{width:100%;height:100%;object-fit:cover}
+.agent h3{margin-top:16px}
+.agent .role{color:var(--muted);font-size:.9rem}
+.agent .row{display:flex;gap:8px;margin-top:12px}
+.agent .row a{flex:1;justify-content:center;height:40px;font-size:.85rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:980px){.grid-4{grid-template-columns:repeat(2,1fr)}}
+
+/* Testimonials */
+.reviews{display:grid;grid-template-columns:1fr 2fr;gap:48px;align-items:start}
+.score{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.score b{font:500 3.4rem var(--serif);display:block;line-height:1}
+.stars{color:var(--accent);letter-spacing:2px;font-size:1.1rem}
+.quotes{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.quote{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:flex;flex-direction:column;gap:14px}
+.quote p{font-size:1rem}
+.quote footer{color:var(--muted);font-size:.85rem;margin-top:auto}
+@media(max-width:900px){.reviews,.quotes{grid-template-columns:1fr}}
+
+/* Insights / blog */
+.post .media{aspect-ratio:16/10;border-radius:var(--radius);overflow:hidden}
+.post img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.post:hover img{transform:scale(1.04)}
+.post .meta{color:var(--muted);font-size:.82rem;margin:16px 0 6px}
+
+/* Footer */
+footer.site{background:var(--brand-ink);color:#B9C6D4;padding:72px 0 28px;font-size:.92rem}
+:root[data-theme="dark"] footer.site{background:#080C11}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px}
+.fgrid h4{color:#fff;font:600 .8rem var(--sans);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.fgrid ul{list-style:none;padding:0;display:grid;gap:10px}
+.fgrid a:hover{color:#fff}
+.legal{border-top:1px solid rgba(255,255,255,.1);margin-top:48px;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.8rem}
+.ack{color:#93A3B5;font-size:.82rem;margin-top:20px;max-width:46ch}
+@media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
+
+/* Mobile sticky action bar (AU portal-style) */
+.mbar{display:none}
+@media(max-width:640px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;bottom:0;left:0;right:0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);z-index:60}
+  .mbar .btn{justify-content:center;height:46px}
+  body{padding-bottom:72px}
+}
+.theme-toggle{background:none;border:1px solid var(--line);border-radius:999px;width:40px;height:40px;color:var(--text);cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 18V7m0 7h18v4M21 14v-3a3 3 0 0 0-3-3h-7v6"/><circle cx="7" cy="11" r="1.6"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3zM6 12V6a2 2 0 0 1 4 0"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 16h14v-4l-2-5H7l-2 5zM5 16v2m14-2v2"/><circle cx="8" cy="13.5" r=".8"/><circle cx="16" cy="13.5" r=".8"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+</svg>
+
+<div class="topbar"><div class="wrap">
+  <span class="hide-sm">Licensed real estate agents · South Australia</span>
+  <span><a href="tel:1800400333">1800 400 333</a> &nbsp;·&nbsp; <a href="mailto:admin@ozirealty.com.au">admin@ozirealty.com.au</a></span>
+</div></div>
+
+<header class="nav"><div class="wrap">
+  <a href="#" class="logo"><span class="logo-mark">O</span>Ozi Realty</a>
+  <nav class="menu" aria-label="Main">
+    <a href="#buy" class="active">Buy</a><a href="#sell">Sell</a><a href="#rent">Rent</a>
+    <a href="#manage">Property Management</a><a href="#team">Our Team</a><a href="#insights">Insights</a>
+  </nav>
+  <div class="nav-cta">
+    <button class="theme-toggle" id="theme" aria-label="Toggle colour theme">◐</button>
+    <a href="tel:1800400333" class="btn btn-ghost">Call us</a>
+    <a href="#appraisal" class="btn btn-primary">Free appraisal</a>
+    <button class="burger" aria-label="Open menu">☰</button>
+  </div>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <span class="eyebrow">Adelaide &amp; surrounds</span>
+  <h1>Local experts. Real results. Your next move, sorted.</h1>
+  <p>Buying, selling, leasing or investing, you get clear advice and honest numbers from a team that knows every street.</p>
+  <div class="search" role="search">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true">Buy</button>
+      <button class="tab" role="tab" aria-selected="false">Rent</button>
+      <button class="tab" role="tab" aria-selected="false">Sold</button>
+    </div>
+    <div class="search-row">
+      <div class="field"><label for="q">Location</label><input id="q" placeholder="Suburb, postcode or address"></div>
+      <div class="field"><label for="t">Property type</label><select id="t"><option>All types</option><option>House</option><option>Townhouse</option><option>Apartment</option><option>Land</option></select></div>
+      <div class="field"><label for="p">Price</label><select id="p"><option>Any price</option><option>Up to $600k</option><option>$600k – $900k</option><option>$900k – $1.5m</option><option>$1.5m+</option></select></div>
+      <button class="btn btn-primary">Search</button>
+    </div>
+  </div>
+</div></section>
+
+<div class="trust"><div class="wrap">
+  <div class="stat"><b>4.9★</b><span>Average Google rating</span></div>
+  <div class="stat"><b>98%</b><span>Of sale price to list price</span></div>
+  <div class="stat"><b>21 days</b><span>Average days on market</span></div>
+  <div class="stat"><b>500+</b><span>Properties under management</span></div>
+</div></div>
+
+<section id="buy"><div class="wrap">
+  <div class="sec-head">
+    <div><span class="eyebrow">Featured properties</span><h2>Just listed</h2></div>
+    <a href="#" class="link-arrow">View all properties <svg width="16" height="16"><use href="#i-arrow"/></svg></a>
+  </div>
+  <div class="grid-3" id="listings"></div>
+</div></section>
+
+<section class="surface" id="sell"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">What we do</span><h2>Full-service real estate</h2></div>
+  <p class="lead">One team for the whole property journey, with no hand-offs and no surprises.</p></div>
+  <div class="grid-3">
+    <article class="service"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg></div>
+      <h3>Sell</h3><p>Data-backed pricing, premium photography and digital campaigns across realestate.com.au and Domain.</p><a href="#appraisal" class="link-arrow">Get an appraisal</a></article>
+    <article class="service" id="manage"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+      <h3>Property management</h3><p>Proactive leasing, routine inspections and an online owner portal, with fast and transparent statements.</p><a href="#" class="link-arrow">Switch to Ozi Realty</a></article>
+    <article class="service" id="rent"><div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9m-4 4 3 3"/></svg></div>
+      <h3>Buy &amp; rent</h3><p>Early access to off-market homes, open-home alerts and simple online applications.</p><a href="#" class="link-arrow">Join our buyer list</a></article>
+  </div>
+</div></section>
+
+<section id="appraisal"><div class="wrap">
+  <div class="appraisal">
+    <div>
+      <span class="eyebrow">What's my home worth?</span>
+      <h2 style="margin-top:12px">Get a free, no-obligation property appraisal</h2>
+      <p>We'll give you a realistic price range based on recent local sales within 24 hours.</p>
+      <ul class="checks">
+        <li><svg width="18" height="18"><use href="#i-check"/></svg>Comparable sales report</li>
+        <li><svg width="18" height="18"><use href="#i-check"/></svg>Rental estimate for investors</li>
+        <li><svg width="18" height="18"><use href="#i-check"/></svg>Tailored marketing plan</li>
+      </ul>
+    </div>
+    <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks, we will be in touch ✓'">
+      <div class="field"><label for="a1">Property address</label><input id="a1" required placeholder="12 Example St, Suburb SA"></div>
+      <div class="search-row" style="grid-template-columns:1fr 1fr">
+        <div class="field"><label for="a2">Name</label><input id="a2" required></div>
+        <div class="field"><label for="a3">Phone</label><input id="a3" type="tel" required></div>
+      </div>
+      <div class="field"><label for="a4">I'm looking to</label><select id="a4"><option>Sell in the next 3 months</option><option>Sell in 3–12 months</option><option>Lease my property</option><option>Just curious</option></select></div>
+      <button class="btn btn-dark" style="justify-content:center">Request my appraisal</button>
+      <small>We respect your privacy. No spam, ever.</small>
+    </form>
+  </div>
+</div></section>
+
+<section class="surface" id="team"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Meet the team</span><h2>People who pick up the phone</h2></div>
+  <a href="#" class="link-arrow">All team members <svg width="16" height="16"><use href="#i-arrow"/></svg></a></div>
+  <div class="grid-4" id="agents"></div>
+</div></section>
+
+<section><div class="wrap reviews">
+  <div>
+    <span class="eyebrow">Client reviews</span><h2 style="margin:12px 0 24px">Trusted by local sellers, buyers and landlords</h2>
+    <div class="score"><b>4.9</b><div class="stars">★★★★★</div><p style="color:var(--muted);margin-top:8px">Average from verified Google reviews</p></div>
+  </div>
+  <div class="quotes">
+    <blockquote class="quote"><div class="stars">★★★★★</div><p>“Clear communication from appraisal to settlement. We sold above our expectations in under three weeks.”</p><footer>— Vendor, sold 2026</footer></blockquote>
+    <blockquote class="quote"><div class="stars">★★★★★</div><p>“Switching our rental to Ozi Realty was the best decision. Quick responses and no hidden fees.”</p><footer>— Landlord</footer></blockquote>
+    <blockquote class="quote"><div class="stars">★★★★★</div><p>“They called us about an off-market home before it hit the portals. Now it's ours.”</p><footer>— First-home buyers</footer></blockquote>
+    <blockquote class="quote"><div class="stars">★★★★★</div><p>“Professional, honest and genuinely local. Highly recommend.”</p><footer>— Vendor</footer></blockquote>
+  </div>
+</div></section>
+
+<section class="surface" id="insights"><div class="wrap">
+  <div class="sec-head"><div><span class="eyebrow">Market insights</span><h2>News &amp; guides</h2></div>
+  <a href="#" class="link-arrow">Read the blog <svg width="16" height="16"><use href="#i-arrow"/></svg></a></div>
+  <div class="grid-3">
+    <a class="post" href="#"><div class="media"><img loading="lazy" alt="" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=900&q=60"></div><div class="meta">Market update · 4 min read</div><h3>Adelaide market update: what spring means for sellers</h3></a>
+    <a class="post" href="#"><div class="media"><img loading="lazy" alt="" src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=900&q=60"></div><div class="meta">Selling · 6 min read</div><h3>Seven low-cost ways to add value before you list</h3></a>
+    <a class="post" href="#"><div class="media"><img loading="lazy" alt="" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=60"></div><div class="meta">Investing · 5 min read</div><h3>A landlord's guide to SA residential tenancy changes</h3></a>
+  </div>
+</div></section>
+
+<footer class="site"><div class="wrap">
+  <div class="fgrid">
+    <div><a class="logo" style="color:#fff"><span class="logo-mark">O</span>Ozi Realty</a>
+      <p style="margin-top:16px">Licensed real estate sales and property management across Adelaide and South Australia.</p>
+      <p class="ack">We acknowledge the Traditional Owners of the lands on which we live and work, and pay our respects to Elders past and present.</p></div>
+    <div><h4>Property</h4><ul><li><a href="#">Buy</a></li><li><a href="#">Rent</a></li><li><a href="#">Sold</a></li><li><a href="#">Open homes</a></li></ul></div>
+    <div><h4>Services</h4><ul><li><a href="#">Free appraisal</a></li><li><a href="#">Property management</a></li><li><a href="#">Maintenance request</a></li><li><a href="#">Book a meeting</a></li></ul></div>
+    <div><h4>Contact</h4><ul><li><a href="tel:1800400333">1800 400 333</a></li><li><a href="mailto:admin@ozirealty.com.au">admin@ozirealty.com.au</a></li><li>Mon–Fri 9am–5:30pm</li></ul></div>
+  </div>
+  <div class="legal"><span>© 2026 Ozi Realty. All rights reserved. RLA [licence number]</span><span><a href="#">Privacy</a> · <a href="#">Terms</a></span></div>
+</div></footer>
+
+<div class="mbar"><a href="tel:1800400333" class="btn btn-ghost">Call</a><a href="#appraisal" class="btn btn-primary">Free appraisal</a></div>
+
+<script>
+const L=[
+ {p:"$849,000 – $899,000",a:"14 Example Street, Prospect SA 5082",b:4,ba:2,c:2,img:"photo-1568605114967-8130f3a36994",tag:"New",cls:"new",ins:"Open Sat 11:00am"},
+ {p:"Auction · Sat 18 Oct",a:"7 Sample Avenue, Glenelg SA 5045",b:3,ba:2,c:1,img:"photo-1570129477492-45c003edd2be",tag:"Auction",cls:"",ins:"Open Thu 5:30pm"},
+ {p:"$1,250,000+",a:"22 Demo Road, Norwood SA 5067",b:5,ba:3,c:2,img:"photo-1600585154340-be6161a56a0c",tag:"Sold",cls:"sold",ins:"Sold in 12 days"},
+];
+document.getElementById('listings').innerHTML=L.map(x=>`
+<article class="listing"><div class="media"><img loading="lazy" alt="Exterior of ${x.a}" src="https://images.unsplash.com/${x.img}?auto=format&fit=crop&w=900&q=60">
+<span class="badge ${x.cls}">${x.tag}</span><button class="fav" aria-label="Save property" aria-pressed="false"><svg width="18" height="18"><use href="#i-heart"/></svg></button><span class="inspect">${x.ins}</span></div>
+<div class="body"><div class="price">${x.p}</div><div class="addr">${x.a}</div>
+<div class="feats"><span><svg><use href="#i-bed"/></svg>${x.b}</span><span><svg><use href="#i-bath"/></svg>${x.ba}</span><span><svg><use href="#i-car"/></svg>${x.c}</span><span style="margin-left:auto">House</span></div></div></article>`).join('');
+const A=[["Agent Name","Sales Director","photo-1560250097-0b93528c311a"],["Agent Name","Property Manager","photo-1573496359142-b8d87734a5a2"],["Agent Name","Sales Associate","photo-1507003211169-0a1dd7228f2d"],["Agent Name","Leasing Consultant","photo-1580489944761-15a19d654956"]];
+document.getElementById('agents').innerHTML=A.map(a=>`<div class="agent"><div class="ph"><img loading="lazy" alt="" src="https://images.unsplash.com/${a[2]}?auto=format&fit=crop&w=600&q=60"></div><h3>${a[0]}</h3><div class="role">${a[1]}</div><div class="row"><a class="btn btn-ghost" href="tel:1800400333">Call</a><a class="btn btn-ghost" href="mailto:admin@ozirealty.com.au">Email</a></div></div>`).join('');
+document.addEventListener('click',e=>{const f=e.target.closest('.fav');if(f)f.setAttribute('aria-pressed',f.getAttribute('aria-pressed')!=='true');
+const t=e.target.closest('.tab');if(t){t.parentNode.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));}});
+document.getElementById('theme').onclick=()=>{const r=document.documentElement,d=r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme:dark)').matches);r.dataset.theme=d?'light':'dark';};
+</script>
+</body>
+</html>
