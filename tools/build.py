@@ -487,7 +487,7 @@ def strategy():
 
 def manage():
     d = DATA['manage-property-adelaide']; s = d['sections']
-    hero = f'''<section class="page-hero" style="padding:0"><div class="wrap on-dark split"><div><span class="eyebrow">Adelaide Property Management</span><h1 class="mt-s">{E(s[0][0]['text'])}</h1><div class="sub" style="font-size:1.6rem;color:var(--yellow)">{E(s[0][1]['text'])}</div>
+    hero = f'''<section class="page-hero" style="padding:0"><div class="wrap on-dark split"><div><span class="eyebrow">Adelaide Property Management</span><h1 class="mt-s">{E(s[0][0]['text'])}</h1><div class="sub" style="font-size:1.6rem;color:var(--orange-lt)">{E(s[0][1]['text'])}</div>
 <div class="hero-badges"><span class="badge"><i></i>100 Days Risk-Free</span><span class="badge"><i></i>No Middle Man</span><span class="badge"><i></i>Trust Account</span><span class="badge"><i></i>REISA standards</span></div>
 <div class="btn-row"><a class="btn btn-accent" href="#pmform">See If I’m Paying Too Much {ARROW}</a><a class="btn btn-ghost" href="#plans">View Plans</a></div></div>
 <div class="media contain"><img src="{img(s[2][1]['src'],900)}" alt="Property management"></div></div></section>'''
@@ -552,7 +552,7 @@ def gift():
     g = s[4]
     gifts = [x['text'] for x in g if x['t'] in ('h3', 'h4')]
     book = s[5]
-    giftsec = f'<section><div class="wrap"><div class="sec-head center"><span class="eyebrow">Bundle gift</span><h2>{E(g[1]["text"])}</h2></div><div class="grid g3">' + ''.join(f'<div class="card rv"><div class="ic">🎁</div><h4>{E(t)}</h4></div>' for t in gifts) + f'<div class="card rv" style="background:var(--navy);color:#fff;border:0"><span class="tag">Free book</span><h4>{E(book[0]["text"])}</h4><p>{E(book[1]["text"])}</p><h3 class="mt-s" style="color:var(--yellow)">{E(book[3]["text"])}</h3></div></div></div></section>'
+    giftsec = f'<section><div class="wrap"><div class="sec-head center"><span class="eyebrow">Bundle gift</span><h2>{E(g[1]["text"])}</h2></div><div class="grid g3">' + ''.join(f'<div class="card rv"><div class="ic">🎁</div><h4>{E(t)}</h4></div>' for t in gifts) + f'<div class="card rv" style="background:var(--navy);color:#fff;border:0"><span class="tag">Free book</span><h4>{E(book[0]["text"])}</h4><p>{E(book[1]["text"])}</p><h3 class="mt-s" style="color:var(--orange-lt)">{E(book[3]["text"])}</h3></div></div></div></section>'
     frm = next(x for x in s[6] if x['t'] == 'form')
     fsec = f'<section class="dark" id="form"><div class="wrap split on-dark"><div class="rv"><span class="eyebrow">Get on the list</span><h2 class="mt-s">{E(g[1]["text"])}</h2><div class="media contain mt-m" style="max-width:340px"><img loading="lazy" src="{img(book[2]["src"],700)}" alt="10 Truths About Finding the Right Home"></div></div><div class="rv">{render_form(frm,"realestate-gift-adelaide","Receive your bundle gift")}</div></div></section>'
     return page('/realestate-gift-adelaide/', d['title'], d['desc'], hero + why + team + giftsec + fsec, d.get('og'))
