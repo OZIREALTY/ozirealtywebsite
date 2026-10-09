@@ -751,28 +751,28 @@ def search_index():
 
 def walk_pages():
     for root, _, files in os.walk(OUT):
-        if 'index.html' in files:
-            fp = os.path.join(root, 'index.html'); h = open(fp).read(200)
-            if 'http-equiv="refresh"' in h: continue
-            rel = os.path.relpath(root, OUT)
-            yield ('/' if rel == '.' else '/' + rel), fp
+        for fn in files:
+            if not fn.endswith('.html') or fn == '404.html': continue
+            fp = os.path.join(root, fn)
+            if 'http-equiv="refresh"' in open(fp).read(400): continue
+            rel = os.path.relpath(fp, OUT)
+            yield ('/' if rel == 'index.html' else '/' + rel), fp
 
 # ---------------------------------------------------------------- write
-CLEAN = re.compile(r'((?:href|content)="|url=|location\.replace\(")(/[A-Za-z0-9_./-]*?[A-Za-z0-9_-])/(?=["#?])')
+# Wix headless hosting serves exact file names only (/about.html works, /about and /about/ 404),
+# so every internal page link points at its .html file.
+CLEAN = re.compile(r'((?:href|content)="|url=|location\.replace\(")(/[A-Za-z0-9_/-]*[A-Za-z0-9_-])/?(?=["#?])')
 def clean_urls(html_):
-    """Internal links use extensionless URLs without a trailing slash (/about-adelaide-land-agent)."""
-    return CLEAN.sub(r'\1\2', html_)
+    return CLEAN.sub(lambda m: m.group(1) + m.group(2) + ('' if m.group(2).startswith('/assets') else '.html'), html_)
+
+def page_url(path):
+    return '/' if path == '/' else '/' + path.strip('/') + '.html'
 
 def write(path, content):
-    """Write each page twice, as <path>.html and <path>/index.html, so the host resolves
-    /path, /path/ and /path.html alike."""
     content = clean_urls(content)
-    if path == '/':
-        open(os.path.join(OUT, 'index.html'), 'w').write(content); return
-    fp = os.path.join(OUT, path.strip('/'), 'index.html')
+    fp = os.path.join(OUT, 'index.html') if path == '/' else os.path.join(OUT, path.strip('/') + '.html')
     os.makedirs(os.path.dirname(fp), exist_ok=True)
     open(fp, 'w').write(content)
-    open(os.path.join(OUT, path.strip('/') + '.html'), 'w').write(content)
 
 def main():
     for d in os.listdir(OUT):
