@@ -74,6 +74,10 @@
           body: JSON.stringify({ submission: { formId: formId, submissions: data.values } }) });
       }).then(function (r) {
         if (!r.ok) throw new Error('submit ' + r.status);
+        return r.json();
+      }).then(function (j) {
+        // Only a CONFIRMED submission is recorded in the Wix dashboard; anything else goes by email too.
+        if (!j || !j.submission || j.submission.status !== 'CONFIRMED') throw new Error('not recorded');
         f.querySelectorAll('.form-grid, button[type=submit]').forEach(function (x) { x.style.display = 'none'; });
         done('Thank you! Your details have been sent to the Ozi Realty team. We’ll be in touch shortly. Prefer to talk? Call 1800 400 333.');
       }).catch(function () { mailFallback(); });
