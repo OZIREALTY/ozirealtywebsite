@@ -1,0 +1,951 @@
+{
+ "buyer-agent-adelaide": {
+  "name": "Speak With Esi , Buyer's Agent and Property Adviser",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": false
+   },
+   {
+    "target": "what_suburbs_are_you_considering",
+    "label": "What suburbs are you considering?",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "what_is_your_budjet",
+    "label": "What is your Budjet?",
+    "kind": "radio",
+    "opts": [
+     "$400,000 to $800,000",
+     "$800,000 to $1,000,000",
+     "$1,000,000 to $1,500,000",
+     "More than $1,500,000"
+    ],
+    "req": true
+   },
+   {
+    "target": "are_you_a_first_home_buyer",
+    "label": "Are you a first-home buyer?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": true
+   },
+   {
+    "target": "do_you_have_finance_pre_approval",
+    "label": "Do you have finance pre-approval?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": true
+   }
+  ]
+ },
+ "free-property-appraisal-sa": {
+  "name": "Get Your Free Appraisal Now",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "when_are_you_considering_selling",
+    "label": "When are you considering selling?",
+    "kind": "select",
+    "opts": [
+     "1-3 months",
+     "3-6 months",
+     "6-12 months",
+     "Just browsing"
+    ],
+    "req": false
+   },
+   {
+    "target": "suburb",
+    "label": "Suburb",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "postcode",
+    "label": "Postcode",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "state",
+    "label": "State",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "house_address",
+    "label": "House Address",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "what_you_want_to_do",
+    "label": "What you want to do?",
+    "kind": "radio",
+    "opts": [
+     "Considering selling.",
+     "Buying and comparing value."
+    ],
+    "req": true
+   }
+  ]
+ },
+ "free-suburb-insight-report": {
+  "name": "Get Your Free Suburb Insight Report",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "reason_for_report",
+    "label": "Reason for report",
+    "kind": "select",
+    "opts": [
+     "Living here",
+     "Investing",
+     "Renting",
+     "Selling soon",
+     "Just Browsing"
+    ],
+    "req": false
+   },
+   {
+    "target": "the_property_you_re_looking_at",
+    "label": "The property you’re looking at",
+    "kind": "select",
+    "opts": [
+     "House",
+     "Town House",
+     "Unit",
+     "Land",
+     "Commercial"
+    ],
+    "req": false
+   },
+   {
+    "target": "send_me_hot_investment_opportunities_acr",
+    "label": "Send me hot investment opportunities across Australia",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": true
+   },
+   {
+    "target": "property_address_or_preferred_suburb",
+    "label": "Property address or preferred suburb",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "which_area_would_you_prefer_to_explore",
+    "label": "Which area would you prefer to explore?",
+    "kind": "radio",
+    "opts": [
+     "Affordable areas (Under $500k)",
+     "Growth areas ($500k – $700k)",
+     "Established mid-range areas ($700k – $900k)",
+     "Premium suburbs ($900k – $1.2M)",
+     "High-end locations ($1.2M – $2M)",
+     "Prestige areas($2M+)"
+    ],
+    "req": true
+   }
+  ]
+ },
+ "index": {
+  "name": "Get your free copy",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone_number",
+    "label": "Phone number",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "tell_us_what_you_re_looking_for",
+    "label": "Tell us what you’re looking for?",
+    "kind": "select",
+    "opts": [
+     "Buy a property",
+     "Sell a property",
+     "Rent a property",
+     "Investment property"
+    ],
+    "req": false
+   }
+  ]
+ },
+ "land-opportunities-sa-adelaide": {
+  "name": "explore land opportunities",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "preferred_area_or_suburbs",
+    "label": "Preferred area or suburbs",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "what_are_you_mainly_looking_for",
+    "label": "What are you mainly looking for?",
+    "kind": "checkbox",
+    "opts": [
+     "Build a home later",
+     "Investment",
+     "Subdivision / development",
+     "Still exploring"
+    ],
+    "req": true
+   },
+   {
+    "target": "preferred_land_size_sqm",
+    "label": "Preferred land size (sqm)",
+    "kind": "radio",
+    "opts": [
+     "Less than 300 sqm",
+     "300–400 sqm",
+     "400–600 sqm",
+     "600+ sqm",
+     "Not sure yet"
+    ],
+    "req": true
+   },
+   {
+    "target": "timing",
+    "label": "Timing",
+    "kind": "radio",
+    "opts": [
+     "Actively looking now",
+     "3–6 months",
+     "6–12 months",
+     "Just researching"
+    ],
+    "req": true
+   },
+   {
+    "target": "anything_else_we_should_know",
+    "label": "Anything else we should know?",
+    "kind": "textarea",
+    "req": false
+   }
+  ]
+ },
+ "manage-property-adelaide": {
+  "name": "Discover how our plan can boost your rental return.",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "phone_number",
+    "label": "Phone number",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "select_your_plan",
+    "label": "Select Your Plan",
+    "kind": "select",
+    "opts": [
+     "Income Protect",
+     "Income Optimise",
+     "Income & Risk Shield",
+     "Owner-Designed Plan"
+    ],
+    "req": false
+   },
+   {
+    "target": "property_address_or_multiple_if_portfoli",
+    "label": "Property address (or multiple if portfolio)",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "current_situation",
+    "label": "Current situation",
+    "kind": "radio",
+    "opts": [
+     "Self-managed",
+     "New investment",
+     "other"
+    ],
+    "req": true
+   },
+   {
+    "target": "biggest_concern",
+    "label": "Biggest concern",
+    "kind": "checkbox",
+    "opts": [
+     "Vacancy",
+     "Tenant quality",
+     "Fees",
+     "Maintenance",
+     "Other"
+    ],
+    "req": true
+   },
+   {
+    "target": "do_you_want_a_free_rental_appraisal",
+    "label": "Do you want a free rental appraisal?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": true
+   }
+  ]
+ },
+ "oversees-investment": {
+  "name": "Register Your Interest – Dubai Property Portfolio",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": false
+   },
+   {
+    "target": "investment_goal",
+    "label": "Investment goal",
+    "kind": "checkbox",
+    "opts": [
+     "Capital growth",
+     "Rental yield",
+     "Tax benefits",
+     "Other"
+    ],
+    "req": false
+   },
+   {
+    "target": "timeframe_to_invest",
+    "label": "Timeframe to invest",
+    "kind": "radio",
+    "opts": [
+     "0–3 months",
+     "3–6 months",
+     "6–12 months",
+     "Longer"
+    ],
+    "req": false
+   },
+   {
+    "target": "budget_range",
+    "label": "Budget range",
+    "kind": "radio",
+    "opts": [
+     "$600,000 to $800,000",
+     "$800,000 to $1,000,000",
+     "$1,000,000 to $1,500,000",
+     "More than $1,500,000"
+    ],
+    "req": false
+   }
+  ]
+ },
+ "property-investment": {
+  "name": "I want to invest",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "investment_goal",
+    "label": "Investment goal",
+    "kind": "checkbox",
+    "opts": [
+     "Capital growth",
+     "Rental yield",
+     "Tax benefits",
+     "Other"
+    ],
+    "req": true
+   },
+   {
+    "target": "type_of_investment",
+    "label": "Type of investment",
+    "kind": "checkbox",
+    "opts": [
+     "In South Australia",
+     "Oversea"
+    ],
+    "req": true
+   },
+   {
+    "target": "budget_range",
+    "label": "Budget range",
+    "kind": "radio",
+    "opts": [
+     "$600,000 to $800,000",
+     "$800,000 to $1,000,000",
+     "$1,000,000 to $1,500,0000",
+     "More than 1,500,0000"
+    ],
+    "req": true
+   }
+  ]
+ },
+ "property-rental-report": {
+  "name": "Get Your Free Rental Estimation Now",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "property_address",
+    "label": "Property address",
+    "kind": "textarea",
+    "req": true
+   }
+  ]
+ },
+ "realestate-gift-adelaide": {
+  "name": "Receive your bundle gift",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone_number",
+    "label": "Phone number",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "tell_us_what_you_re_looking_for",
+    "label": "Tell us what you’re looking for?",
+    "kind": "select",
+    "opts": [
+     "Buy a property",
+     "Sell a property",
+     "Rent a property",
+     "Investment property"
+    ],
+    "req": false
+   }
+  ]
+ },
+ "rent-out-my-property-adelaide": {
+  "name": "Rent Out My Property",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "property_address",
+    "label": "Property address",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "your_property_type",
+    "label": "Your Property type",
+    "kind": "radio",
+    "opts": [
+     "House",
+     "Unit",
+     "Townhouse",
+     "Apartment",
+     "Other"
+    ],
+    "req": false
+   },
+   {
+    "target": "when_are_you_planning_to_rent",
+    "label": "When are you planning to rent?",
+    "kind": "radio",
+    "opts": [
+     "1–3 months",
+     "3–6 months",
+     "6–12 months",
+     "Just exploring"
+    ],
+    "req": false
+   },
+   {
+    "target": "do_you_need_a_free_renting_valuation",
+    "label": "Do you need a free renting valuation?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": false
+   },
+   {
+    "target": "furnished",
+    "label": "Furnished?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": false
+   }
+  ]
+ },
+ "rent-property-house-adelaide": {
+  "name": "I Need To Rent",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": false
+   },
+   {
+    "target": "total_number_of_occupants",
+    "label": "Total number of occupants",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "rental_affordability",
+    "label": "Rental Affordability",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "lease_length",
+    "label": "Lease length",
+    "kind": "radio",
+    "opts": [
+     "6 months",
+     "12 months",
+     "12+ months",
+     "Short-term"
+    ],
+    "req": true
+   },
+   {
+    "target": "move_in_date",
+    "label": "Move-in date",
+    "kind": "date",
+    "req": true
+   },
+   {
+    "target": "do_you_have_pets",
+    "label": "Do you have pets?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": true
+   },
+   {
+    "target": "preferred_suburbs",
+    "label": "Preferred suburbs",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "any_other_requirements_furnished_parking",
+    "label": "Any other requirements? (furnished, parking, accessibility)",
+    "kind": "textarea",
+    "req": false
+   }
+  ]
+ },
+ "sell-my-business-australia": {
+  "name": "Sell My Business",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": false
+   },
+   {
+    "target": "business_name",
+    "label": "Business Name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "industry",
+    "label": "Industry",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "business_address",
+    "label": "Business Address",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "sale_timeframe",
+    "label": "Sale Timeframe",
+    "kind": "radio",
+    "opts": [
+     "ASAP",
+     "3-6 months",
+     "6 - 12 months",
+     "Exploring"
+    ],
+    "req": true
+   }
+  ]
+ },
+ "sell-property-house-adelaide": {
+  "name": "Sell My Property",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "First name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "last_name",
+    "label": "Last name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "property_address",
+    "label": "Property address",
+    "kind": "textarea",
+    "req": true
+   },
+   {
+    "target": "your_property_type",
+    "label": "Your Property type",
+    "kind": "radio",
+    "opts": [
+     "House",
+     "Unit",
+     "Townhouse",
+     "Land"
+    ],
+    "req": false
+   },
+   {
+    "target": "when_are_you_planning_to_sell",
+    "label": "When are you planning to sell?",
+    "kind": "radio",
+    "opts": [
+     "1–3 months",
+     "3–6 months",
+     "6–12 months",
+     "Just exploring"
+    ],
+    "req": false
+   },
+   {
+    "target": "do_you_need_a_free_property_valuation",
+    "label": "Do you need a free property valuation?",
+    "kind": "radio",
+    "opts": [
+     "Yes",
+     "No"
+    ],
+    "req": true
+   }
+  ]
+ },
+ "booking": {
+  "name": "Free Meeting: Real Estate Consultation",
+  "fields": [
+   {
+    "target": "first_name",
+    "label": "Full name",
+    "kind": "text",
+    "req": true
+   },
+   {
+    "target": "phone",
+    "label": "Phone",
+    "kind": "tel",
+    "req": true
+   },
+   {
+    "target": "email",
+    "label": "Email",
+    "kind": "email",
+    "req": true
+   },
+   {
+    "target": "preferred_date",
+    "label": "Preferred date",
+    "kind": "date",
+    "req": false
+   },
+   {
+    "target": "message",
+    "label": "What would you like to discuss?",
+    "kind": "textarea",
+    "req": false
+   }
+  ]
+ }
+}

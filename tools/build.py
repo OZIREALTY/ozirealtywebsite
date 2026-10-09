@@ -140,11 +140,18 @@ FORM_TO = {  # department mailbox each form is routed to
  'rent-out-my-property-adelaide':'rent','rent-property-house-adelaide':'rent','manage-property-adelaide':'rent','property-rental-report':'rent',
  'buyer-agent-adelaide':'buy','land-opportunities-sa-adelaide':'buy','oversees-investment':'oversea','property-investment':'support',
 }
-SELECT_OPTS = {'Select Your Plan': ['Income Protect','Income Optimise','Income & Risk Shield','Owner-Designed Plan'],
-               'When are you considering selling?': ['1–3 months','3–6 months','6–12 months','Just exploring']}
+SELECT_OPTS = {  # dropdown options as defined in the live site's Wix Forms
+ 'Select Your Plan': ['Income Protect', 'Income Optimise', 'Income & Risk Shield', 'Owner-Designed Plan'],
+ 'When are you considering selling?': ['1-3 months', '3-6 months', '6-12 months', 'Just browsing'],
+ 'Reason for report': ['Living here', 'Investing', 'Renting', 'Selling soon', 'Just Browsing'],
+ 'The property you’re looking at': ['House', 'Town House', 'Unit', 'Land', 'Commercial'],
+ 'Tell us what you’re looking for?': ['Buy a property', 'Sell a property', 'Rent a property', 'Investment property'],
+}
 fid = [0]
+FORM_IDS = json.load(open(os.path.join(ROOT, 'content', 'form-ids.json'))) if os.path.exists(os.path.join(ROOT, 'content', 'form-ids.json')) else {}
+SPECS = {}  # form key -> Wix Forms schema spec (input name == Wix field target)
 def render_form(f, key, title=''):
-    fid[0] += 1; n = fid[0]; out = []
+    fid[0] += 1; n = fid[0]; out = []; spec = []
     for fl in f['fields']:
         lab = fl.get('label') or ''
         req = lab.endswith('*') or fl.get('req')
@@ -153,30 +160,37 @@ def render_form(f, key, title=''):
         r = ' required' if req else ''
         star = ' <span style="color:var(--red)">*</span>' if req else ''
         k = fl['k']
+        if any(x['target'] == name for x in spec): name = f'{name}_{len(spec)}'
         if k in ('radio', 'checkbox') and fl.get('opts'):
             if not clean and k == 'checkbox' and len(fl['opts']) == 1:  # standalone checkbox (e.g. consent / opt-in)
                 continue
+            spec.append({'target': name, 'label': clean, 'kind': k, 'opts': [o for o in fl['opts'] if o], 'req': bool(req)})
             chips = ''.join(f'<label><input type="{k}" name="{name}" value="{E(o)}"{r if k=="radio" else ""}><span>{E(o)}</span></label>' for o in fl['opts'] if o)
-            out.append(f'<div class="fld full"><fieldset><legend>{E(clean)}{star}</legend><div class="chips">{chips}</div></fieldset></div>')
+            req_attr = ' data-required' if (req and k == 'checkbox') else ''
+            out.append(f'<div class="fld full"><fieldset{req_attr}><legend>{E(clean)}{star}</legend><div class="chips">{chips}</div></fieldset></div>')
         elif k == 'select':
             opts = SELECT_OPTS.get(clean)
+            spec.append({'target': name, 'label': clean, 'kind': 'select' if opts else 'text', 'opts': opts or [], 'req': False})
             if opts:
                 o = ''.join(f'<option>{E(x)}</option>' for x in opts)
                 out.append(f'<div class="fld full"><label for="f{n}_{name}">{E(clean)}</label><select id="f{n}_{name}" name="{name}"><option value="">Select…</option>{o}</select></div>')
             else:
                 out.append(f'<div class="fld full"><label for="f{n}_{name}">{E(clean)}</label><input id="f{n}_{name}" name="{name}"></div>')
         elif k == 'textarea':
+            spec.append({'target': name, 'label': clean, 'kind': 'textarea', 'req': bool(req)})
             out.append(f'<div class="fld full"><label for="f{n}_{name}">{E(clean)}{star}</label><textarea id="f{n}_{name}" name="{name}"{r}></textarea></div>')
         else:
             t = {'phone':'tel','tel':'tel','email':'email','date':'date','number':'number'}.get(k, 'text')
             if 'date' in clean.lower(): t = 'date'
+            spec.append({'target': name, 'label': clean, 'kind': t, 'req': bool(req)})
             half = clean.lower() in ('first name','last name','email','phone','phone number','suburb','postcode','state')
             out.append(f'<div class="fld{"" if half else " full"}"><label for="f{n}_{name}">{E(clean)}{star}</label><input id="f{n}_{name}" name="{name}" type="{t}"{r} autocomplete="{ {"first name":"given-name","last name":"family-name","email":"email"}.get(clean.lower(), "tel" if t=="tel" else "on") }"></div>')
     to = FORM_TO.get(key.split('__')[0], 'support')
+    SPECS[key] = {'name': (title or DATA.get(key, {}).get('title', key).split('|')[0]).strip(), 'fields': spec}
     consent = f['consent'] or 'By submitting this form, you acknowledge that you have read and understood our Privacy Policy, and consent to us collecting, using, and processing the personal information you provide in accordance with that policy.*'
     consent = E(consent).replace('Privacy Policy', '<a href="https://www.prospectbc.com.au/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>', 1)
     head = f'<h3>{E(title)}</h3>' if title else ''
-    return f'''<form class="form-card" data-form="{E(key)}" data-to="{to}@ozirealty.com.au" novalidate>{head}
+    return f'''<form class="form-card" data-form="{E(key)}" data-form-id="{E(FORM_IDS.get(key, ''))}" data-to="{to}@ozirealty.com.au" novalidate>{head}
 <div class="form-grid">{''.join(out)}</div>
 <button class="btn btn-primary" type="submit">{E(f['submit'])} {ARROW}</button>
 <p class="consent">{consent}</p><div class="form-ok" role="status">Thank you — your details have been sent. Our team will be in touch shortly.</div></form>'''
@@ -566,7 +580,7 @@ def book_online(key='book-online', path='/book-online/'):
     body = text_items(ps) if key == 'book-online' else text_items([x for x in s if x['t'] == 'p'][:1] + [{'t':'h3','text':'Service Description'}] + [x for x in s if x['t']=='p'][1:2])
     card = f'''<div class="card rv" style="padding:0;overflow:hidden">{f'<img src="{img(im["src"],900,560)}" alt="Real estate consultation" style="width:100%">' if im else ''}<div style="padding:28px"><span class="tag">Available Online · 30 min</span><h3>Real Estate Consultation</h3><p class="mt-s">Expert property advice with Esi Dor, Principal of OziRealty (RLA 350 628)</p>
 <div class="stats mt-m"><div class="stat"><b>30 min</b><span>Duration</span></div><div class="stat"><b>Free</b><span>No obligation</span></div></div>
-<form class="mt-m" data-form="booking" data-to="support@ozirealty.com.au" novalidate><div class="form-grid" style="margin-top:0"><div class="fld"><label for="b_name">Full name <span style="color:var(--red)">*</span></label><input id="b_name" name="name" required></div><div class="fld"><label for="b_phone">Phone <span style="color:var(--red)">*</span></label><input id="b_phone" name="phone" type="tel" required></div><div class="fld"><label for="b_email">Email <span style="color:var(--red)">*</span></label><input id="b_email" name="email" type="email" required></div><div class="fld"><label for="b_date">Preferred date</label><input id="b_date" name="preferred_date" type="date"></div><div class="fld full"><label for="b_msg">What would you like to discuss?</label><textarea id="b_msg" name="message"></textarea></div></div><button class="btn btn-primary" style="width:100%;margin-top:16px" type="submit">Request to Book {ARROW}</button><div class="form-ok" role="status">Thank you — your booking request has been sent. We’ll confirm a time shortly.</div></form></div></div>'''
+<form class="mt-m" data-form="booking" data-form-id="{E(FORM_IDS.get('booking', ''))}" data-to="support@ozirealty.com.au" novalidate><div class="form-grid" style="margin-top:0"><div class="fld"><label for="b_name">Full name <span style="color:var(--red)">*</span></label><input id="b_name" name="first_name" required></div><div class="fld"><label for="b_phone">Phone <span style="color:var(--red)">*</span></label><input id="b_phone" name="phone" type="tel" required></div><div class="fld"><label for="b_email">Email <span style="color:var(--red)">*</span></label><input id="b_email" name="email" type="email" required></div><div class="fld"><label for="b_date">Preferred date</label><input id="b_date" name="preferred_date" type="date"></div><div class="fld full"><label for="b_msg">What would you like to discuss?</label><textarea id="b_msg" name="message"></textarea></div></div><button class="btn btn-primary" style="width:100%;margin-top:16px" type="submit">Request to Book {ARROW}</button><div class="form-ok" role="status">Thank you — your booking request has been sent. We’ll confirm a time shortly.</div></form></div></div>'''
     sec = f'<section><div class="wrap split"><div class="prose rv">{body}<div class="note mt-m">308 Prospect Road, Prospect SA, Australia · 1800 400 333 · admin@ozirealty.com.au</div></div>{card}</div></section>'
     return page(path, d['title'], d['desc'][:300], hero + sec, d.get('og'))
 
@@ -715,7 +729,14 @@ def main():
     for _, c in CATS: path, html_ = blog_index(c); write(path, html_); n += 1
     for p in post_list(): write(f'/post/{p["slug"]}/', post_page(p)); n += 1
     open(os.path.join(OUT, '404.html'), 'w').write(notfound()); n += 1
-    print('pages:', n)
+    SPECS['booking'] = {'name': 'Free Meeting: Real Estate Consultation', 'fields': [
+        {'target': 'first_name', 'label': 'Full name', 'kind': 'text', 'req': True},
+        {'target': 'phone', 'label': 'Phone', 'kind': 'tel', 'req': True},
+        {'target': 'email', 'label': 'Email', 'kind': 'email', 'req': True},
+        {'target': 'preferred_date', 'label': 'Preferred date', 'kind': 'date', 'req': False},
+        {'target': 'message', 'label': 'What would you like to discuss?', 'kind': 'textarea', 'req': False}]}
+    json.dump(SPECS, open(os.path.join(ROOT, 'content', 'forms-spec.json'), 'w'), indent=1, ensure_ascii=False)
+    print('pages:', n, 'forms:', len(SPECS))
 
 if __name__ == '__main__':
     main()

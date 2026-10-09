@@ -8,4 +8,4 @@ A modern rebuild of www.ozirealty.com.au. It keeps the same pages, URLs, copy, i
 - `site/assets/site.css` and `site/assets/site.js` hold the design system and behaviour.
 
 Rebuild: `python3 tools/build.py`. Then drop the `site/` folder onto the Wix headless site.
-Enquiry forms validate the input, then open the visitor's email app addressed to the matching department mailbox (sell@, rent@, buy@, oversea@, support@).
+Enquiry forms submit to Wix Forms on the headless site (form IDs in `content/form-ids.json`, schemas in `content/forms-spec.json`) with a visitor token. If Wix is unreachable they fall back to an email to the matching department.
